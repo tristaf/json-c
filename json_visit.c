@@ -16,7 +16,7 @@
 static int _json_c_visit(json_object *jso, json_object *parent_jso, const char *jso_key,
                          size_t *jso_index, json_c_visit_userfunc *userfunc, void *userarg);
 
-int json_c_visit(json_object *jso, int future_flags, json_c_visit_userfunc *userfunc, void *userarg)
+int json_c_visit(json_object *jso, int future_flags  __attribute__((unused)), json_c_visit_userfunc *userfunc, void *userarg)
 {
 	int ret = _json_c_visit(jso, NULL, NULL, NULL, userfunc, userarg);
 	switch (ret)

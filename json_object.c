@@ -839,7 +839,7 @@ void json_object_object_del(struct json_object *jso, const char *key)
 /* json_object_boolean */
 
 static int json_object_boolean_to_json_string(struct json_object *jso, struct printbuf *pb,
-                                              int level, int flags)
+                                              int level __attribute__((unused)), int flags)
 {
 	int ret;
 
@@ -894,8 +894,9 @@ int json_object_set_boolean(struct json_object *jso, json_bool new_value)
 
 /* json_object_int */
 
-static int json_object_int_to_json_string(struct json_object *jso, struct printbuf *pb, int level,
-                                          int flags)
+static int json_object_int_to_json_string(struct json_object *jso, struct printbuf *pb,
+					  int level  __attribute__((unused)),
+                                          int flags  __attribute__((unused)))
 {
 	/* room for 19 digits, the sign char, and a null term */
 	char sbuf[21];
@@ -1259,7 +1260,7 @@ int json_c_set_serialization_double_format(const char *double_format, int global
 }
 
 static int json_object_double_to_json_string_format(struct json_object *jso, struct printbuf *pb,
-                                                    int level, int flags, const char *format)
+                                                    int level  __attribute__((unused)), int flags, const char *format)
 {
 	struct json_object_double *jsodbl = JC_DOUBLE(jso);
 	char buf[128], *p, *q;
@@ -1404,15 +1405,16 @@ static int _json_object_userdata_to_json_string(struct json_object *jso, struct 
 	return json_object_userdata_to_json_string(jso, pb, level, flags);
 }
 
-int json_object_userdata_to_json_string(struct json_object *jso, struct printbuf *pb, int level,
-                                        int flags)
+int json_object_userdata_to_json_string(struct json_object *jso, struct printbuf *pb,
+					int level  __attribute__((unused)),
+                                        int flags  __attribute__((unused)))
 {
 	int userdata_len = strlen((const char *)jso->_userdata);
 	printbuf_memappend(pb, (const char *)jso->_userdata, userdata_len);
 	return userdata_len;
 }
 
-void json_object_free_userdata(struct json_object *jso, void *userdata)
+void json_object_free_userdata(struct json_object *jso  __attribute__((unused)), void *userdata)
 {
 	free(userdata);
 }
@@ -1521,7 +1523,8 @@ int json_object_set_double(struct json_object *jso, double new_value)
 /* json_object_string */
 
 static int json_object_string_to_json_string(struct json_object *jso, struct printbuf *pb,
-                                             int level, int flags)
+                                             int level  __attribute__((unused)),
+					     int flags)
 {
 	ssize_t len = JC_STRING(jso)->len;
 	if (flags & JSON_C_TO_STRING_COLOR)
@@ -1977,8 +1980,9 @@ static int json_object_copy_serializer_data(struct json_object *src, struct json
  *
  * This always returns -1 or 1.  It will never return 2 since it does not copy the serializer.
  */
-int json_c_shallow_copy_default(json_object *src, json_object *parent, const char *key,
-                                size_t index, json_object **dst)
+int json_c_shallow_copy_default(json_object *src, json_object *parent  __attribute__((unused)),
+				const char *key  __attribute__((unused)),
+                                size_t index  __attribute__((unused)), json_object **dst)
 {
 	switch (src->o_type)
 	{

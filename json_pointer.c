@@ -369,7 +369,7 @@ int json_pointer_set_with_cb(struct json_object **obj, const char *path,
 }
 
 static int default_put_cb(struct json_object *parent, const char *key, size_t idx,
-                          struct json_object *value, void *priv)
+                          struct json_object *value, void *priv  __attribute__((unused)))
 {
     if (key == NULL)
         return json_object_array_put_idx(parent, idx, value);

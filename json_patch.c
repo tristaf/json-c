@@ -110,7 +110,8 @@ static int json_patch_apply_remove(struct json_object **res, const char *path, s
 
 // callback for json_pointer_set_with_cb()
 // key is ignored because this callback is only for arrays
-static int json_object_array_insert_idx_cb(struct json_object *parent, const char *key, size_t idx,
+static int json_object_array_insert_idx_cb(struct json_object *parent,
+					   const char *key  __attribute__((unused)), size_t idx,
                                            struct json_object *value, void *priv)
 {
 	int rc;
@@ -162,7 +163,8 @@ static int json_patch_apply_add_replace(struct json_object **res,
 
 // callback for json_pointer_set_with_cb()
 // key is ignored because this callback is only for arrays
-static int json_object_array_move_cb(struct json_object *parent, const char *key, size_t idx,
+static int json_object_array_move_cb(struct json_object *parent,
+				     const char *key  __attribute__((unused)), size_t idx,
                                      struct json_object *value, void *priv)
 {
 	int rc;
